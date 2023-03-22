@@ -1,14 +1,20 @@
-from flask import Flask
+from visa.entity.config_entity import DataIngestionConfig
+from visa.entity.artifact_entity import DataIngestionArtifact
+from visa.config.configuration import Configuartion
+import os,sys
 from visa.loger import logging
+from visa.pipeline.pipeline import Pipeline
+from visa.exception import CustomException
 
+def main():
+    try:
+        pipeline = Pipeline()
+        pipeline.run_pipeline()
+    except Exception as e:
+        logging.error(f"{e}")
+        print(e)
 
-app = Flask(__name__)
+if __name__ == "__main__":
+    main()
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    logging.info("We are just testing loggin module")
-    return "Hello World"
-
-if __name__=="__main__":
-    app.run(debug = True)
-
+            
